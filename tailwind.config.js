@@ -4,10 +4,13 @@ export default {
   theme: {
     extend: {
       colors: {
-        ink: '#1f2937',
-        paper: '#f8fafc',
-        civic: '#0f766e',
-        amberline: '#b45309'
+        ink: '#F4F4F5',
+        paper: '#121212',
+        surface: '#2C2C2C',
+        panel: '#1E1E2E',
+        civic: '#7DD3B0',
+        forest: '#86EFAC',
+        amberline: '#FBBF24'
       }
     }
   },

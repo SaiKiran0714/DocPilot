@@ -61,19 +61,19 @@ export function LetterCard({
   const selectedDetailsPanel = activeDetailsPanel || visibleTabs[0]?.id || '';
 
   return (
-    <article className="rounded-lg border border-slate-200 bg-white p-4">
+    <article className="rounded-lg border border-white/10 bg-surface p-4 shadow-sm shadow-black/20">
       {showImage && letter.image_data_url && (
         <img
           src={letter.image_data_url}
           alt="Uploaded letter"
-          className="mb-4 max-h-80 w-full rounded-md bg-slate-50 object-contain"
+          className="mb-4 max-h-80 w-full rounded-md bg-panel object-contain"
         />
       )}
 
       <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
         <div>
           <h3 className="text-base font-semibold text-ink">{letter.sender || letter.provider}</h3>
-          <p className="mt-1 text-sm text-slate-600">{letter.category}</p>
+          <p className="mt-1 text-sm text-zinc-400">{letter.category}</p>
         </div>
         <span className={`w-fit rounded-full px-2.5 py-1 text-xs font-semibold ring-1 ${urgencyClassNames[letter.urgency_level] || urgencyClassNames.Low}`}>
           {letter.urgency_level}
@@ -82,7 +82,7 @@ export function LetterCard({
 
       {visibleTabs.length > 0 && (
         <div className="mt-4">
-          <div className="flex gap-1 overflow-x-auto rounded-md bg-slate-100 p-1" role="tablist" aria-label="Letter details">
+          <div className="flex gap-1 overflow-x-auto rounded-md bg-panel p-1" role="tablist" aria-label="Letter details">
             {visibleTabs.map((tab) => {
               const Icon = tab.icon;
               const isSelected = selectedDetailsPanel === tab.id;
@@ -96,8 +96,8 @@ export function LetterCard({
                   onClick={() => setActiveDetailsPanel(tab.id)}
                   className={`inline-flex shrink-0 items-center gap-2 rounded px-3 py-2 text-sm font-semibold transition ${
                     isSelected
-                      ? 'bg-white text-civic shadow-sm'
-                      : 'text-slate-600 hover:bg-slate-200'
+                      ? 'bg-civic text-neutral-950 shadow-sm'
+                      : 'text-zinc-300 hover:bg-white/10'
                   }`}
                 >
                   <Icon aria-hidden="true" size={16} />
@@ -110,20 +110,20 @@ export function LetterCard({
       )}
 
       {selectedDetailsPanel === 'overview' && showOverview && letter.ai_overview && (
-        <div className="mt-4 rounded-md bg-teal-50 p-3">
-          <h4 className="text-sm font-semibold text-teal-900">AI overview</h4>
-          <p className="mt-2 whitespace-pre-wrap text-sm text-teal-950">{letter.ai_overview}</p>
+        <div className="mt-4 rounded-md border border-civic/20 bg-civic/10 p-3">
+          <h4 className="text-sm font-semibold text-civic">AI overview</h4>
+          <p className="mt-2 whitespace-pre-wrap text-sm text-zinc-100">{letter.ai_overview}</p>
         </div>
       )}
 
       {selectedDetailsPanel === 'important' && (
-        <div className="mt-4 rounded-md border border-slate-200 bg-white p-3">
-          <h4 className="text-sm font-semibold text-slate-800">Important information</h4>
+        <div className="mt-4 rounded-md border border-white/10 bg-panel p-3">
+          <h4 className="text-sm font-semibold text-zinc-100">Important information</h4>
 
           {Array.isArray(letter.key_dates) && letter.key_dates.length > 0 && (
             <div className="mt-3 space-y-2">
               {letter.key_dates.map((keyDate, index) => (
-                <div key={`${keyDate.date}-${index}`} className="flex items-center gap-2 text-sm text-slate-700">
+                <div key={`${keyDate.date}-${index}`} className="flex items-center gap-2 text-sm text-zinc-300">
                   <CalendarDays aria-hidden="true" size={16} className="text-civic" />
                   <span>{keyDate.label || 'Important date'}: {keyDate.date}</span>
                 </div>
@@ -134,9 +134,9 @@ export function LetterCard({
           {Array.isArray(letter.categorized_info) && letter.categorized_info.length > 0 && (
             <dl className="mt-3 grid gap-2 text-sm sm:grid-cols-2">
               {letter.categorized_info.map((item, index) => (
-                <div key={`${item.category}-${item.key}-${index}`} className="rounded-md bg-slate-50 p-2">
-                  <dt className="font-medium text-slate-700">{item.category}: {item.key}</dt>
-                  <dd className="break-words text-slate-600">{String(item.value ?? 'Unreadable')}</dd>
+                <div key={`${item.category}-${item.key}-${index}`} className="rounded-md bg-white/5 p-2">
+                  <dt className="font-medium text-zinc-200">{item.category}: {item.key}</dt>
+                  <dd className="break-words text-zinc-400">{String(item.value ?? 'Unreadable')}</dd>
                 </div>
               ))}
             </dl>
@@ -146,8 +146,8 @@ export function LetterCard({
             <dl className="mt-3 space-y-2">
               {letter.important_information.map((item, index) => (
                 <div key={`${item.label}-${index}`} className="text-sm">
-                  <dt className="font-medium text-slate-800">{item.label}</dt>
-                  <dd className="text-slate-600">{String(item.value ?? 'Unreadable')}</dd>
+                  <dt className="font-medium text-zinc-100">{item.label}</dt>
+                  <dd className="text-zinc-400">{String(item.value ?? 'Unreadable')}</dd>
                 </div>
               ))}
             </dl>
@@ -156,9 +156,9 @@ export function LetterCard({
           {Array.isArray(letter.structured_fields) && letter.structured_fields.length > 0 && (
             <dl className="mt-3 grid gap-2 text-sm sm:grid-cols-2">
               {letter.structured_fields.map((field, index) => (
-                <div key={`${field.key}-${index}`} className="rounded-md bg-slate-50 p-2">
-                  <dt className="font-medium text-slate-700">{field.key}</dt>
-                  <dd className="break-words text-slate-600">{String(field.value ?? 'Unreadable')}</dd>
+                <div key={`${field.key}-${index}`} className="rounded-md bg-white/5 p-2">
+                  <dt className="font-medium text-zinc-200">{field.key}</dt>
+                  <dd className="break-words text-zinc-400">{String(field.value ?? 'Unreadable')}</dd>
                 </div>
               ))}
             </dl>
@@ -171,18 +171,18 @@ export function LetterCard({
       )}
 
       {selectedDetailsPanel === 'translation' && letter.translated_text && (
-        <div className="mt-4 rounded-md border border-slate-200 bg-white p-3">
-          <h4 className="text-sm font-semibold text-slate-800">English translation</h4>
-          <p className="mt-2 whitespace-pre-wrap break-words rounded-md bg-slate-50 p-3 text-sm text-slate-600">
+        <div className="mt-4 rounded-md border border-white/10 bg-panel p-3">
+          <h4 className="text-sm font-semibold text-zinc-100">English translation</h4>
+          <p className="mt-2 whitespace-pre-wrap break-words rounded-md bg-white/5 p-3 text-sm text-zinc-300">
             {letter.translated_text}
           </p>
         </div>
       )}
 
       {selectedDetailsPanel === 'rawText' && letter.extracted_text && (
-        <div className="mt-4 rounded-md border border-slate-200 bg-white p-3">
-          <h4 className="text-sm font-semibold text-slate-800">Raw extracted text</h4>
-          <p className={`mt-2 whitespace-pre-wrap break-words rounded-md bg-slate-50 p-3 text-sm text-slate-600 ${showFullExtractedText ? '' : 'line-clamp-6'}`}>
+        <div className="mt-4 rounded-md border border-white/10 bg-panel p-3">
+          <h4 className="text-sm font-semibold text-zinc-100">Raw extracted text</h4>
+          <p className={`mt-2 whitespace-pre-wrap break-words rounded-md bg-white/5 p-3 text-sm text-zinc-300 ${showFullExtractedText ? '' : 'line-clamp-6'}`}>
             {letter.extracted_text}
           </p>
         </div>
@@ -201,11 +201,11 @@ function PaymentPanel({ paymentDetails }) {
   ].filter(Boolean).join('\n');
 
   return (
-    <div className="mt-4 rounded-md border border-slate-200 bg-white p-3">
+    <div className="mt-4 rounded-md border border-white/10 bg-panel p-3">
       <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
         <div>
-          <h4 className="text-sm font-semibold text-slate-800">Payment options</h4>
-          <p className="mt-1 text-sm text-slate-600">Check the details against the original letter before sending money.</p>
+          <h4 className="text-sm font-semibold text-zinc-100">Payment options</h4>
+          <p className="mt-1 text-sm text-zinc-400">Check the details against the original letter before sending money.</p>
         </div>
         <span className="w-fit rounded-full bg-amber-50 px-2 py-1 text-xs font-semibold text-amber-700">
           Verify first
@@ -252,14 +252,14 @@ function PaymentPanel({ paymentDetails }) {
           href="https://www.paypal.com/myaccount/transfer/send"
           target="_blank"
           rel="noreferrer"
-          className="inline-flex items-center gap-2 rounded-md bg-slate-100 px-3 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-200"
+          className="inline-flex items-center gap-2 rounded-md bg-white/10 px-3 py-2 text-sm font-semibold text-zinc-100 hover:bg-white/15"
         >
           <ExternalLink aria-hidden="true" size={16} />
           Open PayPal
         </a>
       </div>
 
-      <p className="mt-3 text-xs text-slate-500">
+      <p className="mt-3 text-xs text-zinc-500">
         SEPA direct debit cannot be started safely from this prototype. Use the copied SEPA details in your banking app.
       </p>
     </div>
@@ -268,9 +268,9 @@ function PaymentPanel({ paymentDetails }) {
 
 function PaymentField({ label, value }) {
   return (
-    <div className="rounded-md bg-slate-50 p-2">
-      <dt className="font-medium text-slate-700">{label}</dt>
-      <dd className="break-words text-slate-600">{String(value)}</dd>
+    <div className="rounded-md bg-white/5 p-2">
+      <dt className="font-medium text-zinc-200">{label}</dt>
+      <dd className="break-words text-zinc-400">{String(value)}</dd>
     </div>
   );
 }
@@ -280,7 +280,7 @@ function PaymentActionButton({ children, onClick }) {
     <button
       type="button"
       onClick={onClick}
-      className="inline-flex items-center gap-2 rounded-md bg-slate-100 px-3 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-200"
+      className="inline-flex items-center gap-2 rounded-md bg-white/10 px-3 py-2 text-sm font-semibold text-zinc-100 hover:bg-white/15"
     >
       {children}
     </button>

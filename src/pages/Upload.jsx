@@ -15,13 +15,13 @@ export function UploadPage() {
             <div className="flex items-center justify-between gap-3">
               <div>
                 <h2 className="text-xl font-semibold text-ink">Uploaded image</h2>
-                <p className="mt-2 text-sm text-slate-600">{latestCreatedLetter.original_file_name}</p>
+                <p className="mt-2 text-sm text-zinc-400">{latestCreatedLetter.original_file_name}</p>
               </div>
               <Button type="button" variant="secondary" onClick={() => setLatestCreatedLetter(null)}>
                 Upload another
               </Button>
             </div>
-            <div className="mt-5 rounded-lg border border-slate-200 bg-slate-50 p-3">
+            <div className="mt-5 rounded-lg border border-white/10 bg-panel p-3">
               <img
                 src={latestCreatedLetter.image_data_url}
                 alt="Uploaded letter"
@@ -32,7 +32,7 @@ export function UploadPage() {
         ) : (
           <>
             <h2 className="text-xl font-semibold text-ink">Analyze a new letter</h2>
-            <p className="mt-2 text-sm text-slate-600">The backend extracts full text, translates German to English, and builds a categorized overview.</p>
+            <p className="mt-2 text-sm text-zinc-400">The backend extracts full text, translates German to English, and builds a categorized overview.</p>
             <div className="mt-5">
               <UploadForm onUploadComplete={setLatestCreatedLetter} />
             </div>
@@ -46,7 +46,7 @@ export function UploadPage() {
           {latestCreatedLetter ? (
             <LetterCard letter={latestCreatedLetter} showFullExtractedText showOverview />
           ) : (
-            <p className="rounded-md bg-slate-50 p-4 text-sm text-slate-500">No letter analyzed in this session yet.</p>
+            <p className="rounded-md border border-white/10 bg-panel p-4 text-sm text-zinc-400">No letter analyzed in this session yet.</p>
           )}
         </div>
       </Card>

@@ -109,5 +109,5 @@ if (isProduction) {
 }
 
 app.listen(serverPort, () => {
-  console.log(`[server] German Bureaucracy Buddy API listening on port ${serverPort}.`);
+  console.log(`[server] Docpilot API listening on port ${serverPort}.`);
 });

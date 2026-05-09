@@ -1,4 +1,4 @@
-# German Bureaucracy Buddy
+# Docpilot
 
 A React + Vite + Tailwind CSS prototype for uploading German letters, extracting OCR text, classifying document metadata with an LLM, and saving searchable records in Supabase.
 

@@ -1,4 +1,5 @@
 import { Card } from '../components/Card.jsx';
+import { LoadingSpinner } from '../components/LoadingSpinner.jsx';
 import { useLetters } from '../hooks/useLetters.js';
 
 export function HomePage({ onOpenLetter }) {
@@ -16,9 +17,9 @@ export function HomePage({ onOpenLetter }) {
         )}
 
         {isLoadingLetters ? (
-          <p className="text-sm text-slate-500">Loading your letters...</p>
+          <LoadingSpinner label="Loading your letters" />
         ) : letters.length === 0 ? (
-          <p className="rounded-md bg-white p-5 text-sm text-slate-500">No letters uploaded yet.</p>
+          <p className="rounded-md border border-white/10 bg-surface p-5 text-sm text-zinc-400">No letters uploaded yet.</p>
         ) : (
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {letters.map((letter) => (
@@ -45,7 +46,7 @@ function HomeLetterCard({ letter, onOpenLetter }) {
 
   return (
     <article
-      className="cursor-pointer rounded-lg border border-slate-200 bg-white p-3 shadow-sm transition hover:-translate-y-0.5 hover:border-civic hover:shadow-md"
+      className="cursor-pointer rounded-lg border border-white/10 bg-surface p-3 shadow-sm shadow-black/20 transition hover:-translate-y-0.5 hover:border-civic hover:shadow-lg hover:shadow-black/30"
       role="button"
       tabIndex={0}
       onClick={() => onOpenLetter?.(letter)}
@@ -56,7 +57,7 @@ function HomeLetterCard({ letter, onOpenLetter }) {
         }
       }}
     >
-      <div className="aspect-square w-full overflow-hidden rounded-md bg-slate-100">
+      <div className="aspect-square w-full overflow-hidden rounded-md bg-panel">
         {letter.image_data_url ? (
           <img
             src={letter.image_data_url}
@@ -64,7 +65,7 @@ function HomeLetterCard({ letter, onOpenLetter }) {
             className="h-full w-full object-cover"
           />
         ) : (
-          <div className="flex h-full w-full items-center justify-center px-3 text-center text-xs text-slate-400">
+          <div className="flex h-full w-full items-center justify-center px-3 text-center text-xs text-zinc-500">
             No image
           </div>
         )}
@@ -72,8 +73,8 @@ function HomeLetterCard({ letter, onOpenLetter }) {
 
       <div className="mt-3">
         <h3 className="truncate text-sm font-semibold text-ink">{letter.provider || 'Unknown company'}</h3>
-        <p className="mt-1 text-xs font-medium text-slate-500">{letter.category} · {letter.urgency_level}</p>
-        <p className="mt-2 line-clamp-3 text-xs leading-5 text-slate-600">{previewText}</p>
+        <p className="mt-1 text-xs font-medium text-zinc-400">{letter.category} - {letter.urgency_level}</p>
+        <p className="mt-2 line-clamp-3 text-xs leading-5 text-zinc-300">{previewText}</p>
       </div>
     </article>
   );
@@ -95,28 +96,28 @@ function ReminderSettings() {
       <h2 className="text-lg font-semibold text-ink">Reminder contacts</h2>
       <form className="mt-4 space-y-3" onSubmit={handleReminderSettingsSubmit}>
         <div>
-          <label className="block text-sm font-semibold text-slate-800" htmlFor="reminderEmail">Email</label>
+          <label className="block text-sm font-semibold text-zinc-100" htmlFor="reminderEmail">Email</label>
           <input
             id="reminderEmail"
             name="reminderEmail"
             type="email"
             defaultValue={reminderEmail}
             placeholder="you@example.com"
-            className="mt-1 w-full rounded-md border border-slate-300 px-3 py-2 text-sm outline-none focus:border-civic"
+            className="mt-1 w-full rounded-md border border-white/10 bg-panel px-3 py-2 text-sm text-zinc-100 outline-none focus:border-civic"
           />
         </div>
         <div>
-          <label className="block text-sm font-semibold text-slate-800" htmlFor="reminderPhone">Phone</label>
+          <label className="block text-sm font-semibold text-zinc-100" htmlFor="reminderPhone">Phone</label>
           <input
             id="reminderPhone"
             name="reminderPhone"
             type="tel"
             defaultValue={reminderPhone}
             placeholder="+491234567890"
-            className="mt-1 w-full rounded-md border border-slate-300 px-3 py-2 text-sm outline-none focus:border-civic"
+            className="mt-1 w-full rounded-md border border-white/10 bg-panel px-3 py-2 text-sm text-zinc-100 outline-none focus:border-civic"
           />
         </div>
-        <button type="submit" className="rounded-md bg-civic px-3 py-2 text-sm font-semibold text-white hover:bg-teal-800">
+        <button type="submit" className="rounded-md bg-civic px-3 py-2 text-sm font-semibold text-neutral-950 hover:bg-emerald-200">
           Save contacts
         </button>
       </form>
@@ -130,7 +131,7 @@ function UpcomingActionsPanel({ upcomingReminderEvents, highPriorityActions, onO
       <h2 className="text-lg font-semibold text-ink">Upcoming actions</h2>
       <div className="mt-4 space-y-4">
         {highPriorityActions.length === 0 && upcomingReminderEvents.length === 0 ? (
-          <p className="text-sm text-slate-500">No urgent actions or dated reminders found yet.</p>
+          <p className="text-sm text-zinc-400">No urgent actions or dated reminders found yet.</p>
         ) : (
           <>
             {highPriorityActions.map((action) => (
@@ -155,7 +156,7 @@ function ActionItem({ action, onOpenLetter }) {
   const smsHref = reminderPhone ? `sms:${reminderPhone}?&body=${reminderBody}` : '';
 
   return (
-    <div className="rounded-md border border-slate-200 p-3">
+    <div className="rounded-md border border-white/10 bg-panel/60 p-3">
       <button
         type="button"
         onClick={() => onOpenLetter?.(action.letter)}
@@ -169,19 +170,19 @@ function ActionItem({ action, onOpenLetter }) {
             {action.urgency}
           </span>
         </div>
-        <p className="mt-1 text-xs font-medium text-slate-500">{formatDate(action.date)}</p>
-        <p className="mt-2 line-clamp-2 text-sm text-slate-600">{action.summary}</p>
+        <p className="mt-1 text-xs font-medium text-zinc-400">{formatDate(action.date)}</p>
+        <p className="mt-2 line-clamp-2 text-sm text-zinc-300">{action.summary}</p>
       </button>
       <div className="mt-3 flex flex-wrap gap-2">
         <a
           href={emailHref || undefined}
-          className={`rounded-md px-2.5 py-1.5 text-xs font-semibold ${emailHref ? 'bg-slate-100 text-slate-700 hover:bg-slate-200' : 'bg-slate-50 text-slate-400'}`}
+          className={`rounded-md px-2.5 py-1.5 text-xs font-semibold ${emailHref ? 'bg-white/10 text-zinc-200 hover:bg-white/15' : 'bg-white/5 text-zinc-500'}`}
         >
           Email reminder
         </a>
         <a
           href={smsHref || undefined}
-          className={`rounded-md px-2.5 py-1.5 text-xs font-semibold ${smsHref ? 'bg-slate-100 text-slate-700 hover:bg-slate-200' : 'bg-slate-50 text-slate-400'}`}
+          className={`rounded-md px-2.5 py-1.5 text-xs font-semibold ${smsHref ? 'bg-white/10 text-zinc-200 hover:bg-white/15' : 'bg-white/5 text-zinc-500'}`}
         >
           SMS reminder
         </a>

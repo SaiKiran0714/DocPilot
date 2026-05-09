@@ -45,14 +45,14 @@ export function UploadForm({ onUploadComplete }) {
 
   return (
     <form onSubmit={handleUploadSubmit} className="space-y-5">
-      <label className="flex min-h-56 cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed border-slate-300 bg-slate-50 p-6 text-center transition hover:border-civic hover:bg-teal-50">
+      <label className="flex min-h-56 cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed border-white/15 bg-panel p-6 text-center transition hover:border-civic hover:bg-civic/10">
         {imagePreviewUrl ? (
           <img src={imagePreviewUrl} alt="Selected letter preview" className="max-h-72 rounded-md object-contain" />
         ) : (
           <>
             <ImagePlus aria-hidden="true" size={40} className="text-civic" />
-            <span className="mt-3 text-sm font-semibold text-slate-800">Capture or upload a letter image</span>
-            <span className="mt-1 text-sm text-slate-500">PNG, JPG, or scanned document photo</span>
+            <span className="mt-3 text-sm font-semibold text-zinc-100">Capture or upload a letter image</span>
+            <span className="mt-1 text-sm text-zinc-400">PNG, JPG, or scanned document photo</span>
           </>
         )}
         <input
